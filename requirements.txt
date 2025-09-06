@@ -1,0 +1,61 @@
+# QuikDel: Distributed Q-Learning for Food Delivery Optimization
+# Core Dependencies
+
+# Scientific Computing & Data Analysis
+numpy>=1.21.0
+pandas>=1.3.0
+scipy>=1.7.0
+
+# Geospatial Data Processing
+geopandas>=0.9.0
+shapely>=1.7.0
+fiona>=1.8.0
+pyproj>=3.1.0
+folium>=0.12.0
+geojson>=2.5.0
+
+# Machine Learning & Reinforcement Learning
+scikit-learn>=0.24.0
+networkx>=2.5.0
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+plotly>=5.0.0
+bokeh>=2.3.0
+
+# Web APIs & HTTP Requests
+requests>=2.25.0
+urllib3>=1.26.0
+overpass>=0.7.0
+
+# Configuration & Logging
+pyyaml>=5.4.0
+configparser>=5.0.0
+logging>=0.4.9.6
+
+# Testing & Development
+pytest>=6.2.0
+pytest-cov>=2.12.0
+black>=21.0.0
+flake8>=3.9.0
+
+# Geospatial Libraries (requires system GDAL installation)
+GDAL>=3.0.0
+
+# Optional: For advanced visualizations
+cartopy>=0.19.0
+contextily>=1.1.0
+
+# Optional: For parallel processing
+joblib>=1.0.0
+multiprocessing-logging>=0.3.0
+
+# Optional: For performance monitoring
+memory-profiler>=0.58.0
+psutil>=5.8.0
+
+# Development Tools
+jupyterlab>=3.0.0
+notebook>=6.4.0
+ipywidgets>=7.6.0
