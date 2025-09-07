@@ -1,0 +1,218 @@
+# QuikDel Default Configuration
+# This file contains the default parameters for QuikDel simulations
+
+# City Configuration
+city:
+  name: "Columbus"
+  state: "Ohio"
+  country: "USA"
+
+# QCense Data Extraction Settings
+data_extraction:
+  # Census data source
+  census_year: 2018
+  use_convex_hull: true
+  min_producers_per_tract: 1
+  min_consumers_per_tract: 1
+  
+  # OpenStreetMap settings
+  osm_timeout: 300  # seconds
+  osm_retries: 3
+  
+  # GraphHopper routing settings
+  routing_profile: "car"
+  avoid_toll_roads: false
+  traffic_aware: true
+  
+  # Output settings
+  output_format: "geojson"
+  include_metadata: true
+
+# Network Construction Parameters
+network:
+  # Hotspot placement
+  hotspot_method: "centroid"  # centroid, geometric_center, weighted_centroid
+  
+  # Superspot selection
+  superspot_ratio: 10  # hotspots per superspot (1:10 ratio)
+  min_children: 4      # minimum hotspots per superspot cluster
+  spacing_threshold: 1.0  # minimum distance between superspots (normalized)
+  
+  # SES scoring weights
+  ses_weights:
+    producers: 0.33
+    consumers: 0.33
+    bordering_tracts: 0.34
+  
+  # Network validation
+  validate_connectivity: true
+  max_cluster_size: 50
+  min_cluster_size: 3
+
+# Q-Learning Training Parameters
+training:
+  # Basic Q-learning parameters
+  alpha: 0.1           # learning rate
+  gamma: 0.99          # discount factor
+  episodes: 10000      # training episodes
+  
+  # Exploration strategy (Boltzmann)
+  exploration_method: "boltzmann"
+  temperature_init: 1000
+  temperature_min: 1
+  decay_rate: 0.2
+  
+  # Training optimization
+  batch_size: 32
+  update_frequency: 100
+  convergence_threshold: 0.001
+  max_episode_length: 500
+  
+  # Reward function parameters
+  reward_weights:
+    destination_bonus: 1.0
+    time_penalty: -0.1
+    idle_penalty: -1.0
+    progress_bonus: 0.5
+  
+  # Output settings
+  save_qtables: true
+  save_training_logs: true
+  checkpoint_frequency: 1000
+
+# Simulation Parameters
+simulation:
+  # Delivery load settings
+  total_deliveries: 300
+  simulation_time: 60  # minutes
+  time_multiplier: 1.5  # delivery time window multiplier
+  
+  # Bimodal delivery distribution
+  demand_distribution:
+    type: "bimodal_gaussian"
+    peak1_time: 15      # first peak at 15 minutes
+    peak2_time: 45      # second peak at 45 minutes
+    sigma: 8            # standard deviation
+  
+  # Ride-sharing parameters
+  enable_ride_sharing: true
+  max_shared_deliveries: 2
+  ride_share_threshold: 0.44  # Γ parameter (city-specific)
+  pas_size_ratio: 0.1         # PAS size as fraction of action space
+  
+  # Request handling
+  request_queue_size: 1000
+  approval_timeout: 30  # seconds
+  priority_by_qvalue: true
+  
+  # Success criteria
+  time_brackets: [15, 20, 25, 30, 45, 60, 90, 120, 180, 240]  # minutes
+  success_rate_target: 0.85
+  
+  # Output settings
+  save_delivery_paths: true
+  save_agent_interactions: false  # can be large
+  log_level: "INFO"
+
+# Baseline Configurations
+baselines:
+  # Point-to-Point baseline
+  p2p:
+    algorithm: "dijkstra"
+    allow_ride_sharing: false
+    direct_routing: true
+  
+  # Ablation study (QuikDel without ride-sharing)
+  ablation:
+    use_network_structure: true
+    use_qtables: true
+    allow_ride_sharing: false
+
+# Performance and Resource Settings
+performance:
+  # Parallel processing
+  max_workers: 4
+  use_multiprocessing: true
+  chunk_size: 100
+  
+  # Memory management
+  qtable_compression: true
+  cache_distance_matrices: true
+  max_memory_usage: "8GB"
+  
+  # Monitoring
+  enable_profiling: false
+  log_memory_usage: false
+  save_performance_metrics: true
+
+# Visualization Settings
+visualization:
+  # Map settings
+  map_style: "OpenStreetMap"
+  figure_size: [12, 8]
+  dpi: 300
+  
+  # Color schemes
+  colors:
+    hotspots: "#FF6B6B"
+    superspots: "#4ECDC4"
+    delivery_paths: "#45B7D1"
+    shared_paths: "#96CEB4"
+    census_tracts: "#FFEAA7"
+  
+  # Output formats
+  save_formats: ["png", "pdf"]
+  interactive_plots: true
+
+# Experimental Settings
+experiments:
+  # Parameter sweeps
+  ratio_sweep: [5, 10, 15, 20, 30, 40]
+  load_sweep: [300, 350, 400, 450, 500]
+  threshold_sweep: [0.1, 0.2, 0.3, 0.4, 0.5]
+  
+  # Reproducibility
+  random_seed: 42
+  numpy_seed: 42
+  
+  # Cross-validation
+  n_runs: 10
+  confidence_level: 0.95
+  
+  # Statistical testing
+  enable_statistical_tests: true
+  significance_level: 0.05
+
+# Output and Logging
+output:
+  # Directory structure
+  base_dir: "results"
+  create_timestamps: true
+  
+  # File formats
+  metrics_format: "json"
+  qtable_format: "pickle"
+  network_format: "geojson"
+  
+  # Compression
+  compress_large_files: true
+  compression_level: 6
+  
+  # Retention
+  keep_intermediate_files: false
+  cleanup_temp_files: true
+
+# Development and Debug Settings
+debug:
+  enable_debug_mode: false
+  verbose_logging: false
+  save_debug_info: false
+  break_on_error: false
+  
+  # Testing
+  unit_test_data: "test_data/small_city.json"
+  integration_test_timeout: 300
+  
+  # Profiling
+  profile_memory: false
+  profile_cpu: false
