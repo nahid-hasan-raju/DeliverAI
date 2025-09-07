@@ -19,9 +19,7 @@ QuikDel introduces a novel distributed reinforcement learning framework that con
 - [Usage](#usage)
 - [QCense Data Extraction Tool](#qcense-data-extraction-tool)
 - [Experimental Results](#experimental-results)
-- [Repository Structure](#repository-structure)
 - [Research Artifacts](#research-artifacts)
-- [Citation](#citation)
 - [Acknowledgments](#acknowledgments)
 
 ## Key Contributions
